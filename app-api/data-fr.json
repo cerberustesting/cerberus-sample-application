@@ -1,0 +1,22 @@
+{
+    "content": [
+    {
+      "description": "Etagère métal argent",
+      "picture": "pdt01.jpeg",
+      "ref": "AAA0",
+      "price": 39
+    },
+    {
+      "description": "Radiateur électrique",
+      "picture": "pdt02.jpeg",
+      "ref": "AAA1",
+      "price": 149
+    },
+    {
+      "description": "Piscine Tubulaire",
+      "picture": "pdt03.jpeg",
+      "ref": "AAA2",
+      "price": 99
+    }
+    ]
+}
