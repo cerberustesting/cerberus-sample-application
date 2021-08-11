@@ -13,9 +13,9 @@ jobs:
     - uses: actions/checkout@v2
     - name: Checkout source and build
       run: echo Hello, world!
-  deploy_fr:
+  deploy_UAT_FR:
     needs: Build
-    name: Deploy FR
+    name: Deploy UAT FR
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@master
@@ -30,9 +30,9 @@ jobs:
         target: "/opt/http-content/jftl2021/app-fr-test"
         strip_components: 1
         rm: true
-  deploy_uk:
+  deploy_UAT_UK:
     needs: Build
-    name: Deploy UK
+    name: Deploy UAT UK
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@master
@@ -48,7 +48,8 @@ jobs:
         strip_components: 1
         rm: true
   run_tests:
-    needs: [deploy_fr,deploy_uk]
+    needs: [deploy_UAT_FR,deploy_UAT_UK]
+    name: Cerberus Testing on UAT
     runs-on: ubuntu-20.04
     steps:
     - uses: actions/checkout@v2
@@ -62,3 +63,22 @@ jobs:
         CAMPAIGN: Website_NonRegression_UAT
         APIKEY: ${{ secrets.APIKEY }}
       shell: bash
+  Deploy_PROD_FR:
+    needs: [run_tests]
+    name: Deploy PROD FR
+    runs-on: ubuntu-latest
+    environment:
+      name: awebsiteStaticProd
+    steps:
+    - uses: actions/checkout@master
+    - name: copy file via ssh password
+      uses: appleboy/scp-action@master
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }}
+        password: ${{ secrets.PASSWORD }}
+        port: ${{ secrets.PORT }}
+        source: "website/*.html,website/*.js,website/js/*.js,website/js/jQuery-2.2.3/*.js,website/image/*.jpeg,website/image/*.jpg"
+        target: "/opt/http-content/jftl2021/app-fr"
+        strip_components: 1
+        rm: true
