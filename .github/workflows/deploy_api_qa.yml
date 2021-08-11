@@ -1,0 +1,23 @@
+name: Deploy API on QA
+
+on:
+  push:
+    paths:
+      - 'app-api/**'
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - name: copy file via ssh password
+      uses: appleboy/scp-action@master
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }}
+        password: ${{ secrets.PASSWORD }}
+        port: ${{ secrets.PORT }}
+        source: "app-api/*.json"
+        target: "/opt/http-content/jftl2021/testbci/app-api"
+        rm: true
