@@ -4,14 +4,12 @@ on:
    workflow_dispatch:
 
 jobs:
-  run-tests:
+  run_tests:
     runs-on: ubuntu-20.04
     steps:
-      - name: Launch campaign
-        run: |
-          curl --request POST --url "https://prod.cerberus-testing.com/AddToExecutionQueuePrivate" -d campaign=TestBCI -d tag=toto --cookie "JSESSIONID=B406EC02B7FE44F76240BEDE70C6B93C"
-          while [ $n -le 5 ]
-            do
-               echo "Welcome $n times."
-               n=$(( n+1 ))	 # increments $n
-            done
+    - uses: actions/checkout@v2
+    - name: Run script file
+      run: |
+         chmod +x ./launchTest.sh
+         ./launchTest.sh
+      shell: bash
