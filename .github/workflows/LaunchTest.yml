@@ -9,4 +9,9 @@ jobs:
     steps:
       - name: Launch campaign
         run: |
-          curl --request POST --url "https://prod.cerberus-testing.com/AddToExecutionQueuePrivate" -d campaign=TestBCI --cookie "JSESSIONID=B406EC02B7FE44F76240BEDE70C6B93C"
+          curl --request POST --url "https://prod.cerberus-testing.com/AddToExecutionQueuePrivate" -d campaign=TestBCI -d tag=toto --cookie "JSESSIONID=B406EC02B7FE44F76240BEDE70C6B93C"
+          while [ $n -le 5 ]
+            do
+               echo "Welcome $n times."
+               n=$(( n+1 ))	 # increments $n
+            done
