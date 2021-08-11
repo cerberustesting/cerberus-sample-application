@@ -21,3 +21,13 @@ jobs:
         source: "website/*.html,website/*.js,website/js/*.js,website/js/jQuery-2.2.3/*.js,website/image/*.jpeg,website/image/*.jpg"
         target: "/opt/http-content/jftl2021/testbci/app-fr"
         rm: true
+
+  run_cerberus_tests:
+    runs-on: ubuntu-20.04
+    steps:
+    - uses: actions/checkout@v2
+    - name: Run script file
+      run: |
+         chmod +x ./launchTest.sh
+         ./launchTest.sh
+      shell: bash
