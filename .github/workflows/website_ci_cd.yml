@@ -68,7 +68,7 @@ jobs:
     name: Deploy PROD FR
     runs-on: ubuntu-latest
     environment:
-      name: awebsiteStaticProd
+      name: websiteStaticProd
     steps:
     - uses: actions/checkout@master
     - name: copy file via ssh password
