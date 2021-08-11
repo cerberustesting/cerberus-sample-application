@@ -55,5 +55,5 @@ jobs:
     - name: Run script file
       run: |
          chmod +x ./launchTest.sh
-         ./launchTest.sh
+         ./launchTest.sh -a ${{ github.event.pusher.name }} -h https://jftl2021.cerberus-testing.com -c Website_NonRegression_UAT
       shell: bash
