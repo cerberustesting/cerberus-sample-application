@@ -1,6 +1,6 @@
 #!/bin/bash
 
-curl --request POST --url "https://prod.cerberus-testing.com/AddToExecutionQueuePrivate" -d campaign=TestBCI -d tag=tutu
+curl --request POST --url "https://prod.cerberus-testing.com/AddToExecutionQueueV003" -d campaign=TestBCI -d tag=tutu
 
 
 num=0
