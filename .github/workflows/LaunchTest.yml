@@ -1,7 +1,11 @@
 name: Cerberus
 
 on:
-   workflow_dispatch:
+   workflow_run:
+    workflows: ["Deploy website on QA"]
+    branches: [main]
+    types: 
+      - completed
 
 jobs:
   run_tests:
