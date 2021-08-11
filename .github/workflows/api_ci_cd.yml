@@ -39,4 +39,9 @@ jobs:
       run: |
          chmod +x ./launchTest.sh
          ./launchTest.sh
+      env:
+        AUTHOR: ${{ github.event.pusher.name }}
+        HOST: https://jftl2021.cerberus-testing.com
+        CAMPAIGN: API_NonRegression_UAT
+        APIKEY: ${{ secrets.APIKEY }}
       shell: bash
