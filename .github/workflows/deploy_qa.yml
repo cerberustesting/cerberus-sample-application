@@ -3,7 +3,7 @@ name: Deploy QA
 on:
   push:
     paths:
-    - 'app-fr'
+    - 'app-fr/**'
 
 jobs:
   build:
