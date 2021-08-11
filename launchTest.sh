@@ -9,7 +9,7 @@ echo "Campaign Name: $CAMPAIGN";
 tag=$CAMPAIGN.$AUTHOR.$(date +%s)
 
 ###Run Campaign
-curl --request POST --url "$HOST/AddToExecutionQueueV003" -d campaign=$CAMPAIGN -d tag=$tag
+curl --request POST --url "$HOST/AddToExecutionQueueV003" -d campaign=$CAMPAIGN -d tag=$tag -H "apikey : $APIKEY"
 
 ###Loop on resultCI Until end of campaign
 num=0
