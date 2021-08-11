@@ -1,12 +1,12 @@
 #!/bin/bash
 
-curl --request POST --url "https://prod.cerberus-testing.com/AddToExecutionQueuePrivate" -d campaign=TestBCI -d tag=tutu --cookie "JSESSIONID=B406EC02B7FE44F76240BEDE70C6B93C"
+curl --request POST --url "https://prod.cerberus-testing.com/AddToExecutionQueuePrivate" -d campaign=TestBCI -d tag=tutu -H "apikey : ${{ secrets.APIKEY }}"
 
 
 num=0
 while [ $num -lt 3 ]
 do
-    result=$(curl --request POST --url "https://prod.cerberus-testing.com/ResultCIV004" -d tag=tutu --cookie "JSESSIONID=B406EC02B7FE44F76240BEDE70C6B93C" | jq -r '.result')
+    result=$(curl --request POST --url "https://prod.cerberus-testing.com/ResultCIV004" -d tag=tutu -H "apikey : ${{ secrets.APIKEY }}" | jq -r '.result')
     echo $result
     if [[ "$result" != "PE" ]]; then
         break
