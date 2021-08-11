@@ -60,4 +60,5 @@ jobs:
         AUTHOR: ${{ github.event.pusher.name }}
         HOST: https://jftl2021.cerberus-testing.com
         CAMPAIGN: Website_NonRegression_UAT
+        APIKEY: ${{ secrets.APIKEY }}
       shell: bash
