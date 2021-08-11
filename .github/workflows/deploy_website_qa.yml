@@ -3,7 +3,7 @@ name: Deploy website on QA
 on:
   push:
     paths:
-      - 'app-fr/**'
+      - 'website/**'
 
 jobs:
   build:
@@ -18,6 +18,6 @@ jobs:
         username: ${{ secrets.USERNAME }}
         password: ${{ secrets.PASSWORD }}
         port: ${{ secrets.PORT }}
-        source: "app-fr/*.html,app-fr/*.js,app-fr/js/*.js,app-fr/js/jQuery-2.2.3/*.js,app-fr/image/*.jpeg,app-fr/image/*.jpg"
+        source: "website/*.html,website/*.js,website/js/*.js,website/js/jQuery-2.2.3/*.js,website/image/*.jpeg,website/image/*.jpg"
         target: "/opt/http-content/jftl2021/testbci/app-fr"
         rm: true
