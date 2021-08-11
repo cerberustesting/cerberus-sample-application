@@ -1,4 +1,4 @@
-name: Deploy website on QA
+name: Deploy website on QA and launch Campaign
 
 on:
   push:
@@ -27,7 +27,7 @@ jobs:
         password: ${{ secrets.PASSWORD }}
         port: ${{ secrets.PORT }}
         source: "website/*.html,website/*.js,website/js/*.js,website/js/jQuery-2.2.3/*.js,website/image/*.jpeg,website/image/*.jpg"
-        target: "/opt/http-content/jftl2021/testbci/app-fr"
+        target: "/opt/http-content/jftl2021/app-fr-test"
         rm: true
   deploy_uk:
     needs: Build
@@ -43,7 +43,7 @@ jobs:
         password: ${{ secrets.PASSWORD }}
         port: ${{ secrets.PORT }}
         source: "website/*.html,website/*.js,website/js/*.js,website/js/jQuery-2.2.3/*.js,website/image/*.jpeg,website/image/*.jpg"
-        target: "/opt/http-content/jftl2021/testbci/app-uk"
+        target: "/opt/http-content/jftl2021/app-uk-test"
         strip_components: 1
         rm: true
   run_tests:
