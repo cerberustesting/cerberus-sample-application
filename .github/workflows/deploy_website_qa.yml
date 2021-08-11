@@ -10,6 +10,14 @@ jobs:
     name: Build
     runs-on: ubuntu-latest
     steps:
+    - uses: actions/checkout@v2
+    - name: Checkout source and build
+      run: echo Hello, world!
+  deploy_fr:
+    needs: Build
+    name: Deploy FR
+    runs-on: ubuntu-latest
+    steps:
     - uses: actions/checkout@master
     - name: copy file via ssh password
       uses: appleboy/scp-action@master
@@ -21,8 +29,24 @@ jobs:
         source: "website/*.html,website/*.js,website/js/*.js,website/js/jQuery-2.2.3/*.js,website/image/*.jpeg,website/image/*.jpg"
         target: "/opt/http-content/jftl2021/testbci/app-fr"
         rm: true
-  run_tests:
+  deploy_uk:
     needs: Build
+    name: Deploy UK
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - name: copy file via ssh password
+      uses: appleboy/scp-action@master
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }}
+        password: ${{ secrets.PASSWORD }}
+        port: ${{ secrets.PORT }}
+        source: "website/*.html,website/*.js,website/js/*.js,website/js/jQuery-2.2.3/*.js,website/image/*.jpeg,website/image/*.jpg"
+        target: "/opt/http-content/jftl2021/testbci/app-uk"
+        rm: true
+  run_tests:
+    needs: [deploy_fr,deploy_uk]
     runs-on: ubuntu-20.04
     steps:
     - uses: actions/checkout@v2
