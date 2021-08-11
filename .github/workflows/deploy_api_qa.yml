@@ -3,7 +3,7 @@ name: Deploy API on QA
 on:
   push:
     paths:
-      - 'app-api/**'
+      - 'website/**'
 
 jobs:
   build:
@@ -18,6 +18,6 @@ jobs:
         username: ${{ secrets.USERNAME }}
         password: ${{ secrets.PASSWORD }}
         port: ${{ secrets.PORT }}
-        source: "app-api/*.json"
+        source: "website/*.json"
         target: "/opt/http-content/jftl2021/testbci/app-api"
         rm: true
