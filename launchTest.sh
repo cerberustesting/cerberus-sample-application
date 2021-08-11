@@ -4,17 +4,17 @@
 while getopts c:h:n: flag
 do
     case "${flag}" in
-        c) committer=${OPTARG};;
+        a) author=${OPTARG};;
         h) host=${OPTARG};;
         n) campaignName=${OPTARG};;
     esac
 done
-echo "Committer: $committer";
+echo "Author: $author";
 echo "Cerberus Host: $host";
 echo "Campaign Name: $campaignName";
 
 ###Generate Tag using Campaign Name, Commiter and UnixTimestamp
-tag=$campaignName.$(date +%s)
+tag=$campaignName.$author.$(date +%s)
 
 ###Run Campaign
 curl --request POST --url "$host/AddToExecutionQueueV003" -d campaign=$campaignName -d tag=$tag
