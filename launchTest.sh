@@ -1,29 +1,21 @@
 #!/bin/bash
 
 ###Get CampaignName and Cerberus Host
-while getopts c:h:n: flag
-do
-    case "${flag}" in
-        a) author=${OPTARG};;
-        h) host=${OPTARG};;
-        n) campaignName=${OPTARG};;
-    esac
-done
-echo "Author: $author";
-echo "Cerberus Host: $host";
-echo "Campaign Name: $campaignName";
+echo "Author: $AUTHOR";
+echo "Cerberus Host: $HOST";
+echo "Campaign Name: $CAMPAIGN";
 
 ###Generate Tag using Campaign Name, Commiter and UnixTimestamp
-tag=$campaignName.$author.$(date +%s)
+tag=$CAMPAIGN.$AUTHOR.$(date +%s)
 
 ###Run Campaign
-curl --request POST --url "$host/AddToExecutionQueueV003" -d campaign=$campaignName -d tag=$tag
+curl --request POST --url "$HOST/AddToExecutionQueueV003" -d campaign=$CAMPAIGN -d tag=$tag
 
 ###Loop on resultCI Until end of campaign
 num=0
 while [ $num -lt 3 ]
 do
-    result=$(curl --request POST --url "$host/ResultCIV004" -d tag=$tag | jq -r '.result')
+    result=$(curl --request POST --url "$HOST/ResultCIV004" -d tag=$tag | jq -r '.result')
     echo $result
     if [[ "$result" != "PE" ]]; then
         break
