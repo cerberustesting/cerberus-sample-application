@@ -19,5 +19,6 @@ jobs:
         username: ${{ secrets.USERNAME }}
         password: ${{ secrets.PASSWORD }}
         port: ${{ secrets.PORT }}
-        source: "app-fr/index.html,app-fr/plp.html"
-        target: "/opt/http-content/jftl2021/testbci"
+        source: "app-fr/*.html,app-fr/*.js,app-fr/js/*.js,app-fr/js/jQuery-2.2.3/*.js,app-fr/image/*.jpeg,app-fr/image/*.jpg"
+        target: "/opt/http-content/jftl2021/testbci/app-fr"
+        rm: true
