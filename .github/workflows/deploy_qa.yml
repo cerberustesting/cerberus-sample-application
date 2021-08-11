@@ -2,9 +2,8 @@ name: Deploy QA
 
 on:
   push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
+    paths:
+    - 'app-fr'
 
 jobs:
   build:
