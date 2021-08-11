@@ -1,0 +1,12 @@
+name: Cerberus
+
+on:
+   workflow_dispatch:
+
+jobs:
+  run-tests:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Launch campaign
+        run: |
+          curl --request POST --url "https://prod.cerberus-testing.com/AddToExecutionQueuePrivate" -d campaign=TestBCI --cookie "JSESSIONID=B406EC02B7FE44F76240BEDE70C6B93C"
