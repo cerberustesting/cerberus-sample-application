@@ -39,4 +39,4 @@ jobs:
       run: |
          chmod +x ./launchTest.sh
          ./launchTest.sh
-      shell: bashname: Deploy API on QA
+      shell: bash
