@@ -28,6 +28,7 @@ jobs:
         port: ${{ secrets.PORT }}
         source: "website/*.html,website/*.js,website/js/*.js,website/js/jQuery-2.2.3/*.js,website/image/*.jpeg,website/image/*.jpg"
         target: "/opt/http-content/jftl2021/app-fr-test"
+        strip_components: 1
         rm: true
   deploy_uk:
     needs: Build
