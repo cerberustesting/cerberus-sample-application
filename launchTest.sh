@@ -15,7 +15,7 @@ curl --request POST --url "$HOST/AddToExecutionQueueV003" -d campaign=$CAMPAIGN 
 num=0
 while [ $num -lt 3 ]
 do
-    result=$(curl --request POST --url "$HOST/ResultCIV004" -d tag=$tag | jq -r '.result')
+    result=$(curl --request POST --url "$HOST/ResultCIV004" -d tag=$tag -H "apikey : $APIKEY"| jq -r '.result')
     echo $result
     if [[ "$result" != "PE" ]]; then
         break
