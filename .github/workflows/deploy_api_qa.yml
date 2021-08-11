@@ -1,4 +1,4 @@
-name: Deploy API on QA
+name: Deploy API on QA and launch Campaign
 
 on:
   push:
@@ -10,6 +10,14 @@ jobs:
     name: Build
     runs-on: ubuntu-latest
     steps:
+    - uses: actions/checkout@v2
+    - name: Checkout source and build
+      run: echo Hello, world!
+  deploy:
+    needs: Build
+    name: Deploy
+    runs-on: ubuntu-latest
+    steps:
     - uses: actions/checkout@master
     - name: copy file via ssh password
       uses: appleboy/scp-action@master
@@ -19,5 +27,16 @@ jobs:
         password: ${{ secrets.PASSWORD }}
         port: ${{ secrets.PORT }}
         source: "api/*.json"
-        target: "/opt/http-content/jftl2021/testbci/app-api"
+        target: "/opt/http-content/jftl2021/app-api-test"
+        strip_components: 1
         rm: true
+  run_tests:
+    needs: [deploy_fr,deploy_uk]
+    runs-on: ubuntu-20.04
+    steps:
+    - uses: actions/checkout@v2
+    - name: Run script file
+      run: |
+         chmod +x ./launchTest.sh
+         ./launchTest.sh
+      shell: bashname: Deploy API on QA
