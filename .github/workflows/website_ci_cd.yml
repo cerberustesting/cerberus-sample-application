@@ -82,3 +82,38 @@ jobs:
         target: "/opt/http-content/jftl2021/app-fr"
         strip_components: 1
         rm: true
+  Deploy_PROD_UK:
+    needs: [run_tests]
+    name: Deploy PROD UK
+    runs-on: ubuntu-latest
+    environment:
+      name: websiteStaticProd
+    steps:
+    - uses: actions/checkout@master
+    - name: copy file via ssh password
+      uses: appleboy/scp-action@master
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }}
+        password: ${{ secrets.PASSWORD }}
+        port: ${{ secrets.PORT }}
+        source: "website/*.html,website/*.js,website/js/*.js,website/js/jQuery-2.2.3/*.js,website/image/*.jpeg,website/image/*.jpg"
+        target: "/opt/http-content/jftl2021/app-uk"
+        strip_components: 1
+        rm: true
+  run_tests_prod:
+    needs: [deploy_UAT_FR,deploy_UAT_UK]
+    name: Cerberus Testing Sanaity on PROD
+    runs-on: ubuntu-20.04
+    steps:
+    - uses: actions/checkout@v2
+    - name: Run script file
+      run: |
+         chmod +x ./launchTest.sh
+         ./launchTest.sh
+      env:
+        AUTHOR: ${{ github.event.pusher.name }}
+        HOST: https://jftl2021.cerberus-testing.com
+        CAMPAIGN: SanityCheck
+        APIKEY: ${{ secrets.APIKEY }}
+      shell: bash
