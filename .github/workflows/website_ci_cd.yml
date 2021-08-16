@@ -103,7 +103,7 @@ jobs:
         rm: true
   run_tests_prod:
     needs: [deploy_UAT_FR,deploy_UAT_UK]
-    name: Cerberus Testing Sanaity on PROD
+    name: Cerberus Testing Sanity on PROD
     runs-on: ubuntu-20.04
     steps:
     - uses: actions/checkout@v2
