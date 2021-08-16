@@ -102,7 +102,7 @@ jobs:
         strip_components: 1
         rm: true
   run_tests_prod:
-    needs: [deploy_UAT_FR,deploy_UAT_UK]
+    needs: [Deploy_PROD_FR,Deploy_PROD_UK]
     name: Cerberus Testing Sanity on PROD
     runs-on: ubuntu-20.04
     steps:
