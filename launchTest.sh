@@ -13,7 +13,7 @@ curl --request POST --url "$HOST/AddToExecutionQueueV003" -d campaign=$CAMPAIGN 
 
 ###Loop on resultCI Until end of campaign
 num=0
-while [ $num -lt 3 ]
+while [ $num -lt 300 ]
 do
     result=$(curl --request POST --url "$HOST/ResultCIV004" -d tag=$tag -H "apikey:$APIKEY"| jq -r '.result')
     echo $result
@@ -21,7 +21,8 @@ do
         break
     fi
     sleep 3
-    echo "One more try"
+    ((num=num+1))
+    echo "Campaign still running... Let's try again ($num/300)."
 done
 
 if [[ "$result" != "OK" ]]; then
