@@ -9,13 +9,13 @@ echo "Campaign Name: $CAMPAIGN";
 tag=$CAMPAIGN.$AUTHOR.$(date +%s)
 
 ###Run Campaign
-curl --request POST --url "$HOST/AddToExecutionQueueV003" -d campaign=$CAMPAIGN -d tag=$tag -H "apikey:$APIKEY"
+curl -s --request POST --url "$HOST/AddToExecutionQueueV003" -d campaign=$CAMPAIGN -d tag=$tag -H "apikey:$APIKEY"
 
 ###Loop on resultCI Until end of campaign
 num=0
 while [ $num -lt 300 ]
 do
-    result=$(curl --request POST --url "$HOST/ResultCIV004" -d tag=$tag -H "apikey:$APIKEY"| jq -r '.result')
+    result=$(curl -s --request POST --url "$HOST/ResultCIV004" -d tag=$tag -H "apikey:$APIKEY"| jq -r '.result')
     echo $result
     if [[ "$result" != "PE" ]]; then
         break
