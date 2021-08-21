@@ -28,8 +28,9 @@ $(document).ready(function () {
 
     let envir=location.hostname;
     envir = envir.replaceAll("app-","").replaceAll(".cerberus-testing.org","").replaceAll("-test","");
-
-    $.ajax({url: "https://app-api.cerberus-testing.org/data-" + envir + ".json",
+    if (location.hostname.includes("-test"))
+        env="-test";
+    $.ajax({url: "https://app-api"+env+".cerberus-testing.org/data-" + envir + ".json",
         async: false,
         success: function (data) {
             console.info('success');
@@ -41,6 +42,3 @@ $(document).ready(function () {
 
 
 });
-
-
-
