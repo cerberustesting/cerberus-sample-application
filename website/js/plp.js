@@ -28,7 +28,7 @@ $(document).ready(function () {
 
     let envir=location.hostname;
     envir = envir.replaceAll("app-","").replaceAll(".cerberus-testing.org","").replaceAll("-test","");
-    if (location.hostname.includes("-test")){
+    if (location.hostname.replaceAll(".cerberus-testing.org","").includes("-test")){
         env="-test";
     } else {
         env="";
