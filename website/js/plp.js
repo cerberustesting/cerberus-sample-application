@@ -13,12 +13,12 @@ function logMapElements(value, key, map) {
     var td2 = $("<td style='text-align: center'></td>").append(desc);
     row.append(td2);
 
-    var desc = $("<div></div>").append(value.picture);
-    var td3 = $("<td style='text-align: center'></td>").append(desc);
+    var pict = $("<div><img width='150px' src='image/"+value.picture+"'></div>");
+    var td3 = $("<td style='text-align: center'></td>").append(pict);
     row.append(td3);
 
-    var desc = $("<div><b></b></div>").append(value.price);
-    var td4 = $("<td style='text-align: center'></td>").append(desc);
+    var price = $("<div><b></b></div>").append(value.price);
+    var td4 = $("<td style='text-align: center'></td>").append(price);
     row.append(td4);
 
     table.append(row);
@@ -26,7 +26,10 @@ function logMapElements(value, key, map) {
 
 $(document).ready(function () {
 
-    $.ajax({url: "https://app-api.cerberus-testing.org/data-fr.json",
+    let envir=location.hostname;
+    envir = envir.replaceAll("app-","").replaceAll(".cerberus-testing.org","").replaceAll("-test","");
+
+    $.ajax({url: "https://app-api.cerberus-testing.org/data-" + envir + ".json",
         async: false,
         success: function (data) {
             console.info('success');
