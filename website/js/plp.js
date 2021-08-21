@@ -30,7 +30,7 @@ $(document).ready(function () {
 //    envir = envir.replaceAll("app-","").replaceAll(".cerberus-testing.org","").replaceAll("-test","");
     envir = envir.replace(/app-/g, '').replace(/.cerberus-testing.org/g, '').replace(/-test/g, '');
 
-    if (location.hostname.replaceAll(".cerberus-testing.org","").includes("-test")){
+    if (location.hostname..replace(/.cerberus-testing.org/g, '').includes("-test")){
         env="-test";
     } else {
         env="";
