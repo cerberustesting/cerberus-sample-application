@@ -45,3 +45,36 @@ jobs:
         CAMPAIGN: API_NonRegression_UAT
         APIKEY: ${{ secrets.APIKEY }}
       shell: bash
+  deploy_PROD:
+    needs: [run_tests]
+    name: deploy_PROD
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - name: copy file via ssh password
+      uses: appleboy/scp-action@master
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }}
+        password: ${{ secrets.PASSWORD }}
+        port: ${{ secrets.PORT }}
+        source: "api/*.json"
+        target: "/opt/http-content/jftl2021/app-api"
+        strip_components: 1
+        rm: true
+  run_tests_prod:
+    needs: [deploy_PROD]
+    name: Cerberus Testing Sanity on PROD
+    runs-on: ubuntu-20.04
+    steps:
+    - uses: actions/checkout@v2
+    - name: Run script file
+      run: |
+         chmod +x ./launchTest.sh
+         ./launchTest.sh
+      env:
+        AUTHOR: ${{ github.event.pusher.name }}
+        HOST: https://jftl2021.cerberus-testing.com
+        CAMPAIGN: SanityCheck_API
+        APIKEY: ${{ secrets.APIKEY }}
+      shell: bash
