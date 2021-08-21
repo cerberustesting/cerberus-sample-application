@@ -1,25 +1,22 @@
 {
     "content": [
     {
-      "val4": false,
-      "val3": true,
-      "val2": "BBB",
-      "val1": "AAA0",
-      "integer": 0
+      "description": "Silver metal Shelf",
+      "picture": "pdt01.jpeg",
+      "ref": "AAA0",
+      "price": 19
     },
     {
-      "val4": false,
-      "val3": true,
-      "val2": "BBB",
-      "val1": "AAA1",
-      "integer": 1
+      "description": "Electric heater",
+      "picture": "pdt02.jpeg",
+      "ref": "AAA1",
+      "price": 49
     },
     {
-      "val4": false,
-      "val3": true,
-      "val2": "BBB",
-      "val1": "AAA2",
-      "integer": 2
+      "description": "Tubular Pool",
+      "picture": "pdt03.jpeg",
+      "ref": "AAA2",
+      "price": 9
     }
     ]
 }
