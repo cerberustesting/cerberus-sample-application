@@ -39,8 +39,8 @@ $(document).ready(function () {
         async: false,
         success: function (data) {
             console.info('success');
-            console.info(data.content);
-            data.content.forEach(logMapElements);
+            console.info(data.data.content);
+            data.data.content.forEach(logMapElements);
 
         }
     });
