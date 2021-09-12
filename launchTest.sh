@@ -9,6 +9,7 @@ echo "Campaign Name: $CAMPAIGN";
 tag=$CAMPAIGN.$AUTHOR.$(date +%s)
 
 ###Run Campaign
+echo "Campaign Details on : $HOST/ReportingExecutionByTag.jsp?Tag=$tag"
 curl -s --request POST --url "$HOST/AddToExecutionQueueV003" -d campaign=$CAMPAIGN -d tag=$tag -H "apikey:$APIKEY"
 echo
 
