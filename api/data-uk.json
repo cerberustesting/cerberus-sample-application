@@ -1,4 +1,5 @@
 {
+  "data": {
     "content": [
     {
       "description": "Silver metal Shelf",
@@ -19,4 +20,5 @@
       "price": 9
     }
     ]
+  }
 }
