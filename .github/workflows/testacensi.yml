@@ -1,0 +1,31 @@
+name: Deploy website on QA and launch Campaign
+
+on:
+  push:
+    paths:
+      - 'website/**'
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Checkout source and build
+      run: echo Hello, world!
+  run_tests:
+    needs: [deploy_UAT_FR,deploy_UAT_UK]
+    name: Cerberus Testing on UAT
+    runs-on: ubuntu-20.04
+    steps:
+    - uses: actions/checkout@v2
+    - name: Run script file
+      run: |
+         chmod +x ./launchTest.sh
+         ./launchTest.sh
+      env:
+        AUTHOR: ${{ github.event.pusher.name }}
+        HOST: https://acensi.cerberus-testing.com
+        CAMPAIGN: SafeCampaign
+        APIKEY: ${{ secrets.APIKEY }}
+      shell: bash
