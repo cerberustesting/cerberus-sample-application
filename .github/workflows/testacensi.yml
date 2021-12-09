@@ -27,5 +27,5 @@ jobs:
         AUTHOR: ${{ github.event.pusher.name }}
         HOST: https://acensi.cerberus-testing.com
         CAMPAIGN: SafeCampaign
-        APIKEY: ${{ secrets.APIKEY }}
+        APIKEY: ${{ secrets.APIKEY2 }}
       shell: bash
