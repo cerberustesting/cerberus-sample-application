@@ -1,5 +1,102 @@
 <html>
+  <head>
+    <style>
+      .container {
+            border-style:dotted;
+      }
+      .search {
+            background-color: powderblue;
+      }
+      .product {
+            background-color:rgba(172, 65, 65, 0.473);
+      }
+      .customer {
+            background-color:rgba(74, 177, 100, 0.425)
+      }
+      .checkout {
+            background-color:rgba(230, 149, 82, 0.473)
+      }
+    </style>
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js"   integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="   crossorigin="anonymous"></script>
+    <title>Dummy Shadow DOM page</title>
+  </head> 
   <body>
-    Hello World
+    <h1>Dummy Shadow DOM page used for Cerberus regression testing purpose</h1>
+    <div style="width:100%;height:150" class="search container">
+      <style>h3 {color: blue;}</style>
+      <h3>This element is not Shadow DOM. It's handled by Search Team</h3>
+      <input style="width:49%" placeholder="Search ...."/>
+      <br>
+    </div>
+    <br>
+    <div style="width:100%;display:inline-block">
+        <div id="shadowhostProduct" class="container product" style="width:49%;height:400;float:left"></div>
+        <div id="shadowhostCheckout" class="container checkout" style="width:49%;height:400;float:right"></div>
+    </div>
+    <br>
+    <br>
+    <div id="shadowhostCustomer" class="container customer" style="width:100%;height:200"></div>
   </body>
 </html>
+<!--############ CUSTOMER AREA ############-->
+     <script> 
+        var host =document.getElementById('shadowhostCustomer');
+        var shadowRoot=host.attachShadow({mode: 'open'});
+        var div = document.createElement('div');
+        div.id = 'customerDiv';
+        div.innerHTML = '<style>h3 {color: green;}</style>\
+                        <h3>This component is inside Shadow DOM shadowhostCustomer handled by Customer Team</h3>\
+                        <div>Login : <input id="login" placeholder="Feed Login"/></div>\
+                        <div>Password : <input id="password" type="password" placeholder="Feed Password"/></div>\
+                        <button id="loginButton" onclick="login()">Login</button>';
+        shadowRoot.appendChild(div);
+    </script>
+    <script>
+        function login(){
+            $($("#shadowhostCustomer")[0].shadowRoot).find('#customerDiv').empty();
+            $($("#shadowhostCustomer")[0].shadowRoot).find('#customerDiv').html('<h1 id="loginWelcomeMessage">Welcome Benoit</h1>');
+        }
+    </script>
+<!--############ END CUSTOMER AREA ############-->
+<script> 
+//############ PRODUCT AREA ############
+    var host =document.getElementById('shadowhostProduct');
+    var shadowRoot=host.attachShadow({mode: 'open'});
+    var div = document.createElement('div');
+    div.innerHTML='<style> h3 {color: red;} </style>\
+                 <h3>This component is inside Shadow DOM shadowhostProduct handled by Product Team</h3>\
+                 <div><div style="float:left"><img src="product.jpg"></img></div>\
+                 <div style="float:right"><b>Unit price : 12.99€</b><br>\
+                 <button id="addToBasket" onclick="addToBasket()">Buy</button></div></div>';
+    shadowRoot.appendChild(div);
+//############ END PRODUCT AREA ############
+</script>
+<script> 
+//############ CHECKOUT AREA ############
+    var host =document.getElementById('shadowhostCheckout');
+    var shadowRoot=host.attachShadow({mode: 'open'});
+    var div = document.createElement('div');
+    div.innerHTML='<style> h3 {color: orange;} </style> \
+                 <h3>This component is inside Shadow DOM shadowhostCheckout handled by Checkout Team</h3>\
+                 <div id="basketContent"></div>';
+    shadowRoot.appendChild(div);
+</script>
+<script>
+    function addToBasket(){
+        var host = $($("#shadowhostCheckout")[0].shadowRoot).find('#basketContent')[0];
+        var shadowRoot=host.attachShadow({mode: 'open'});
+        var div = document.createElement('div');
+        div.style = "background-color:white";
+        div.id = "shadowhostProductInCheckout";
+        div.innerHTML='<style> h3 {color: red;} </style><div style="border-style:dotted;width:99%;height:130;background-color:rgba(172, 65, 65, 0.473);">\
+                 <h3>This component is inside Shadow DOM shadowhostProductInCheckout handled by Product Team</h3>\
+                 <div><div style="float:left"><img style="width:50px;height:50px" src="product.jpg"></img></div>\
+                 <div style="float:right"><b id="checkoutPrice">12.99</b><br>\
+                 <button id="clearBasket" onclick="clearBasket()">Clear</button></div></div></div>';
+        shadowRoot.appendChild(div);
+    }
+    function clearBasket(){
+        $($("#shadowhostCheckout")[0].shadowRoot).find('#basketContent').html("");
+    }
+//############ END CHECKOUT AREA ############
+</script>
